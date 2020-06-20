@@ -1,11 +1,12 @@
-import configparser
 import logging
 import sys
 from datetime import datetime
 
-from definitions import LOG_PATH, CONFIG_FILEPATH
+from definitions import LOG_PATH
+from tribostorebot.bot import TriboStoreBot
+from tribostorebot.config import Config
 
-def _config_logging():
+def _setup_logging():
     log_filename = datetime.now().strftime('%d_%m_%Y_%H_%M_%S') + '.log'
     log_filepath = LOG_PATH / log_filename
 
@@ -20,14 +21,11 @@ def _config_logging():
     sys.stdout = log_file
     sys.stderr = log_file
 
-def _read_config_file():
-    config = configparser.ConfigParser()
-    config.read(CONFIG_FILEPATH)
-    return config
-
 def main():
-    _config_logging()
-    config = _read_config_file()
+    _setup_logging()
+    cfg = Config()
+    bot = TriboStoreBot(cfg.token, cfg.request_url, cfg.fetch_interval)
+    bot.start()
 
 if __name__ == '__main__':
     main()
