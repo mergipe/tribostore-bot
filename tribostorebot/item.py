@@ -44,6 +44,17 @@ class Item:
         raise TypeError(f"'<=' not supported between instances of "
             f"'{type(self).__name__}' and '{type(other).__name__}'")
 
+    def __str__(self):
+        s = (
+            f"{self.name}"
+            f"\n{self.description}"
+            f"\nPreço (GAUPOINTS): {str(self.cost)}"
+             "\nDisponível: "
+            f"{str(self.available_quantity) if self.enabled else 'Não'}"
+            f"\nEm estoque: {self.total_quantity}"
+        )
+        return s
+
 
 class ItemList:
 
@@ -51,7 +62,28 @@ class ItemList:
         if items == None:
             self._items = []
         else:
-            self._items = items
+            self._items = items.copy()
+
+    def __len__(self):
+        return len(self._items)
+
+    def __eq__(self, other):
+        if len(self) != len(other):
+            return False
+
+        self.sort_by_name()
+        other.sort_by_name()
+        pairs = zip(self._items, other._items)
+        neq = any(x != y for x, y in pairs)
+
+        return not neq
 
     def sort_by_name(self):
         self._items = sorted(self._items)
+
+    def filter_available(self):
+        self._items = [
+            item for item in self._items if(
+                item.enabled and item.available_quantity > 0
+            )
+        ]

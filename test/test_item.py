@@ -74,3 +74,19 @@ def test_itemlist_sort_by_name():
     itemlist.sort_by_name()
     l = itemlist._items
     assert all(l[i] <= l[i+1] for i in range(len(l)-1))
+
+def test_itemlist_len():
+    items = _create_item_list()
+    itemlist = ItemList(items)
+    assert len(itemlist) == len(items)
+
+def test_itemlist_eq():
+    itemlist1 = ItemList(_create_item_list())
+    itemlist2 = ItemList(_create_item_list())
+    itemlist3 = ItemList(_create_item_list()[0:2])
+    itemlist4 = ItemList(_create_item_list())
+    itemlist4._items[2].name = 'Nome5'
+
+    assert itemlist1 == itemlist2
+    assert itemlist1 != itemlist3
+    assert itemlist1 != itemlist4
