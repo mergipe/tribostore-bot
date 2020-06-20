@@ -35,12 +35,14 @@ class Item:
     def __lt__(self, other):
         if isinstance(other, Item):
             return self.name < other.name
-        return False
+        raise TypeError(f"'<' not supported between instances of "
+            f"'{type(self).__name__}' and '{type(other).__name__}'")
 
     def __le__(self, other):
         if isinstance(other, Item):
             return self.name <= other.name
-        return False
+        raise TypeError(f"'<=' not supported between instances of "
+            f"'{type(self).__name__}' and '{type(other).__name__}'")
 
 
 class ItemList:

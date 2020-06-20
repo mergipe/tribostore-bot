@@ -1,3 +1,5 @@
+import pytest
+
 from tribostorebot.item import Item
 from tribostorebot.item import ItemList
 
@@ -43,12 +45,20 @@ def test_item_equality():
 
 def test_item_le_and_lt():
     item1, item2, item3 = _create_item_list()
+
     assert item1 <= item2
     assert item1 <= item3
     assert item3 <= item1
     assert item3 <= item2
+
     assert item1 < item2
     assert item3 < item2
+
+    with pytest.raises(TypeError):
+        item1 < 5
+
+    with pytest.raises(TypeError):
+        item1 <= 5
 
 def test_itemlist_instantiation():
     itemlist = ItemList()
