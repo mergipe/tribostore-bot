@@ -31,3 +31,25 @@ class Item:
                 and self.total_quantity == other.total_quantity
             )
         return False
+
+    def __lt__(self, other):
+        if isinstance(other, Item):
+            return self.name < other.name
+        return False
+
+    def __le__(self, other):
+        if isinstance(other, Item):
+            return self.name <= other.name
+        return False
+
+
+class ItemList:
+
+    def __init__(self, items=None):
+        if items == None:
+            self._items = []
+        else:
+            self._items = items
+
+    def sort_by_name(self):
+        self._items = sorted(self._items)
