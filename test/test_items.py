@@ -1,6 +1,7 @@
 import pytest
 
 from tribostorebot.items import Item, ItemList, ItemRetriever
+from tribostorebot.config import Config
 
 
 def _assert_item_attributes(item):
@@ -116,6 +117,18 @@ def test_itemlist_filter_available():
 
 
 def test_retriever_instantiation():
-    url = 'test_url'
+    url = 'mock_url'
     s = ItemRetriever(url)
     assert s._url == url
+
+def test_retriever_retrieve_items():
+    cfg = Config()
+    r = ItemRetriever(cfg.request_url)
+    itemlist = r.retrieve_items()
+    assert type(itemlist).__name__ == ItemList.__name__
+
+def test_retriever_retrieve_items_exception():
+    r = ItemRetriever('mock_url')
+
+    with pytest.raises(Exception):
+        itemlist = r.retrieve_items()

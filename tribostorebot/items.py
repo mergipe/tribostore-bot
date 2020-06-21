@@ -117,8 +117,10 @@ class ItemRetriever:
                 itemlist.sort_by_name()
                 return itemlist
             else:
-                logging.warning('Request error at ItemRetriever.fetch_items(): '
-                                '%s', str(req.json()))
+                logging.warning('Request error at '
+                                'ItemRetriever.retrieve_items(): %s',
+                                str(req.json()))
         except:
-            logging.exception('Exception raised at ItemRetriever.fetch_items()')
+            logging.exception('Exception raised at '
+                              'ItemRetriever.retrieve_items()')
             raise
