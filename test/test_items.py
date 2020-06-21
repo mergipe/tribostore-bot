@@ -83,14 +83,13 @@ def test_itemlist_instantiation_from_dictlist():
     assert type(itemlist._items).__name__ == 'list'
     assert len(itemlist) > 0
 
-    for item in itemlist._items:
+    for item in itemlist:
         assert isinstance(item, Item)
 
 def test_itemlist_sort_by_name():
     itemlist = ItemList(_create_item_list())
     itemlist.sort_by_name()
-    l = itemlist._items
-    assert all(l[i] <= l[i+1] for i in range(len(l)-1))
+    assert all(itemlist[i] <= itemlist[i+1] for i in range(len(itemlist)-1))
 
 def test_itemlist_len():
     items = _create_item_list()
@@ -102,7 +101,7 @@ def test_itemlist_eq():
     itemlist2 = ItemList(_create_item_list())
     itemlist3 = ItemList(_create_item_list()[0:2])
     itemlist4 = ItemList(_create_item_list())
-    itemlist4._items[2].name = 'Nome5'
+    itemlist4[2].name = 'Nome5'
 
     assert itemlist1 == itemlist2
     assert itemlist1 != itemlist3
@@ -112,7 +111,7 @@ def test_itemlist_filter_available():
     itemlist = ItemList(_create_item_list())
     itemlist.filter_available()
 
-    for item in itemlist._items:
+    for item in itemlist:
         assert item.enabled and item.available_quantity > 0
 
 

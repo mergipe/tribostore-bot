@@ -81,6 +81,16 @@ class ItemList:
     def __len__(self):
         return len(self._items)
 
+    def __iter__(self):
+        self._iterator = iter(self._items)
+        return self
+
+    def __next__(self):
+        return next(self._iterator)
+
+    def __getitem__(self, key):
+        return self._items[key]
+
     def __eq__(self, other):
         if len(self) != len(other):
             return False
