@@ -1,7 +1,7 @@
 import pytest
 
-from tribostorebot.item import Item
-from tribostorebot.item import ItemList
+from tribostorebot.items import Item
+from tribostorebot.items import ItemList
 
 def _assert_item_attributes(item):
     assert item.name == 'Nome'
