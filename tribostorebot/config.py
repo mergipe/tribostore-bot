@@ -6,7 +6,8 @@ from definitions import CONFIG_FILEPATH
 class Config():
 
     def __init__(self):
-        self.token = self._get_bot_token()
+        self.token = os.environ['TRIBOSTOREBOT_TOKEN']
+        self.access_code = os.environ['TRIBOSTOREBOT_ACCESS_CODE']
 
         config = self._read_config_file()
         self.fetch_interval = config['BOT'].getint('fetch_interval_seconds')
@@ -16,6 +17,3 @@ class Config():
         config = configparser.ConfigParser()
         config.read(CONFIG_FILEPATH)
         return config
-
-    def _get_bot_token(self):
-        return os.environ['TRIBOSTOREBOT_TOKEN']
