@@ -24,7 +24,7 @@ def _setup_logging():
 def main():
     _setup_logging()
     cfg = Config()
-    bot = TriboStoreBot(cfg.token, cfg.request_url, cfg.fetch_interval)
+    bot = TriboStoreBot(cfg.token, cfg.request_url, cfg.retrieve_interval)
     bot.start()
 
 if __name__ == '__main__':
