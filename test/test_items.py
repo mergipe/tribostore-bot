@@ -91,6 +91,18 @@ def test_itemlist_sort_by_name():
     itemlist.sort_by_name()
     assert all(itemlist[i] <= itemlist[i+1] for i in range(len(itemlist)-1))
 
+def test_itemlist_getitem():
+    itemlist = ItemList(_create_item_list())
+
+    for i in range(0, len(itemlist)):
+        assert itemlist[i] == itemlist._items[i]
+
+def test_itemlist_iter():
+     itemlist = ItemList(_create_item_list())
+
+     for i, item in zip(range(0, len(itemlist)), itemlist):
+         assert item == itemlist[i]
+
 def test_itemlist_len():
     items = _create_item_list()
     itemlist = ItemList(items)
