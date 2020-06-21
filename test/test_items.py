@@ -1,7 +1,7 @@
 import pytest
 
-from tribostorebot.items import Item
-from tribostorebot.items import ItemList
+from tribostorebot.items import Item, ItemList, Scraper
+
 
 def _assert_item_attributes(item):
     assert item.name == 'Nome'
@@ -67,6 +67,7 @@ def test_item_le_and_lt():
     with pytest.raises(TypeError):
         item1 <= 5
 
+
 def test_itemlist_instantiation():
     itemlist = ItemList()
     assert itemlist._items == []
@@ -112,3 +113,9 @@ def test_itemlist_filter_available():
 
     for item in itemlist._items:
         assert item.enabled and item.available_quantity > 0
+
+
+def test_scraper_instantiation():
+    url = 'test_url'
+    s = Scraper(url)
+    assert s._url == url

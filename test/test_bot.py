@@ -1,5 +1,5 @@
 from tribostorebot.bot import TriboStoreBot
-from tribostorebot.scraper import Scraper
+from tribostorebot.items import Scraper
 
 def test_bot_instantiation():
     token = 'test_token'

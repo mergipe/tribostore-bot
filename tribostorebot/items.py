@@ -1,3 +1,7 @@
+import logging
+import requests
+
+
 class Item:
 
     def __init__(self, name, description, cost, enabled, available_quantity,
@@ -97,3 +101,24 @@ class ItemList:
                 item.enabled and item.available_quantity > 0
             )
         ]
+
+
+class Scraper:
+
+    def __init__(self, url):
+        self._url = url
+
+    def fetch_items(self):
+        try:
+            req = requests.get(self._url)
+
+            if req.ok:
+                itemlist = ItemList.from_dictlist(req.json())
+                itemlist.sort_by_name()
+                return itemlist
+            else:
+                logging.warning('Request error at Scraper.fetch_items(): %s',
+                                str(req.json()))
+        except:
+            logging.exception('Exception raised at Scraper.fetch_items()')
+            raise

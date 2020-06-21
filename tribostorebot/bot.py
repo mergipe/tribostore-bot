@@ -1,4 +1,4 @@
-from tribostorebot.scraper import Scraper
+from tribostorebot.items import Scraper
 
 class TriboStoreBot:
 
