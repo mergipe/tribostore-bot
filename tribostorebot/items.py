@@ -103,12 +103,12 @@ class ItemList:
         ]
 
 
-class Scraper:
+class ItemRetriever:
 
     def __init__(self, url):
         self._url = url
 
-    def fetch_items(self):
+    def retrieve_items(self):
         try:
             req = requests.get(self._url)
 
@@ -117,8 +117,8 @@ class Scraper:
                 itemlist.sort_by_name()
                 return itemlist
             else:
-                logging.warning('Request error at Scraper.fetch_items(): %s',
-                                str(req.json()))
+                logging.warning('Request error at ItemRetriever.fetch_items(): '
+                                '%s', str(req.json()))
         except:
-            logging.exception('Exception raised at Scraper.fetch_items()')
+            logging.exception('Exception raised at ItemRetriever.fetch_items()')
             raise

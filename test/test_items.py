@@ -1,6 +1,6 @@
 import pytest
 
-from tribostorebot.items import Item, ItemList, Scraper
+from tribostorebot.items import Item, ItemList, ItemRetriever
 
 
 def _assert_item_attributes(item):
@@ -115,7 +115,7 @@ def test_itemlist_filter_available():
         assert item.enabled and item.available_quantity > 0
 
 
-def test_scraper_instantiation():
+def test_retriever_instantiation():
     url = 'test_url'
-    s = Scraper(url)
+    s = ItemRetriever(url)
     assert s._url == url

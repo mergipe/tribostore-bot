@@ -3,6 +3,7 @@ import os
 
 from definitions import CONFIG_FILEPATH
 
+
 class Config():
 
     def __init__(self):
@@ -11,7 +12,7 @@ class Config():
 
         config = self._read_config_file()
         self.fetch_interval = config['BOT'].getint('fetch_interval_seconds')
-        self.request_url = config['SCRAPER'].get('request_url')
+        self.request_url = config['ITEM RETRIEVER'].get('request_url')
 
     def _read_config_file(self):
         config = configparser.ConfigParser()
