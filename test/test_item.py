@@ -69,8 +69,7 @@ def test_itemlist_instantiation():
     assert itemlist._items == items
 
 def test_itemlist_sort_by_name():
-    items = _create_item_list()
-    itemlist = ItemList(items)
+    itemlist = ItemList(_create_item_list())
     itemlist.sort_by_name()
     l = itemlist._items
     assert all(l[i] <= l[i+1] for i in range(len(l)-1))
@@ -90,3 +89,10 @@ def test_itemlist_eq():
     assert itemlist1 == itemlist2
     assert itemlist1 != itemlist3
     assert itemlist1 != itemlist4
+
+def test_itemlist_filter_available():
+    itemlist = ItemList(_create_item_list())
+    itemlist.filter_available()
+
+    for item in itemlist._items:
+        assert item.enabled and item.available_quantity > 0
