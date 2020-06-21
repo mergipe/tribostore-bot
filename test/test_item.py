@@ -18,12 +18,8 @@ def _create_item_list():
         Item('Nome1', 'Descrição1', 'Preço1', True, 10, 20)
     ]
 
-def test_item_instantiation():
-    item = Item('Nome', 'Descrição', 'Preço', True, 10, 20)
-    _assert_item_attributes(item)
-
-def test_item_instantiation_from_dict():
-    dictionary = {
+def _create_dictionary():
+    return {
         'name': 'Nome',
         'description': 'Descrição',
         'cost': 'Preço',
@@ -33,7 +29,18 @@ def test_item_instantiation_from_dict():
             'total': 20
         }
     }
-    item = Item.from_dict(dictionary)
+
+def _create_dictlist():
+    return [
+        _create_dictionary()
+    ] * 3
+
+def test_item_instantiation():
+    item = Item('Nome', 'Descrição', 'Preço', True, 10, 20)
+    _assert_item_attributes(item)
+
+def test_item_instantiation_from_dict():
+    item = Item.from_dict(_create_dictionary())
     _assert_item_attributes(item)
 
 def test_item_equality():
@@ -67,6 +74,15 @@ def test_itemlist_instantiation():
     items = _create_item_list()
     itemlist = ItemList(items)
     assert itemlist._items == items
+
+def test_itemlist_instantiation_from_dictlist():
+    itemlist = ItemList.from_dictlist(_create_dictlist())
+    
+    assert type(itemlist._items).__name__ == 'list'
+    assert len(itemlist) > 0
+
+    for item in itemlist._items:
+        assert isinstance(item, Item)
 
 def test_itemlist_sort_by_name():
     itemlist = ItemList(_create_item_list())

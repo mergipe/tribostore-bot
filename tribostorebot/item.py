@@ -64,6 +64,16 @@ class ItemList:
         else:
             self._items = items.copy()
 
+    @classmethod
+    def from_dictlist(cls, dictlist):
+        items = []
+
+        for dictionary in dictlist:
+            item = Item.from_dict(dictionary)
+            items.append(item)
+
+        return cls(items)
+
     def __len__(self):
         return len(self._items)
 
